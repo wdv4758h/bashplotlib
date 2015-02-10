@@ -54,11 +54,11 @@ def plot_scatter(f, xs, ys, size, pch, colour, title):
     plotted = set()
     
     if title:
-        print box_text(title, 2*len(get_scale(xs, False, size))+1)
+        print(box_text(title, 2*len(get_scale(xs, False, size))+1))
     
-    print "-" * (2*len(get_scale(xs, False, size))+2)
+    print("-" * (2*len(get_scale(xs, False, size))+2))
     for y in get_scale(ys, True, size):
-        print "|",
+        print("|", end=' ')
         for x in get_scale(xs, False, size):
             point = " "
             for (i, (xp, yp)) in enumerate(zip(xs, ys)):
@@ -73,8 +73,8 @@ def plot_scatter(f, xs, ys, size, pch, colour, title):
             elif y==0:
                 point = "-"
             printcolour(point, True, colour)
-        print "|"
-    print "-"*(2*len(get_scale(xs, False, size))+2)
+        print("|")
+    print("-"*(2*len(get_scale(xs, False, size))+2))
 
 
 def main():
@@ -97,7 +97,7 @@ def main():
     if opts.f or (opts.x and opts.y):
         plot_scatter(opts.f, opts.x, opts.y, opts.size, opts.pch, opts.colour, opts.t)
     else:
-        print "nothing to plot!"
+        print("nothing to plot!")
 
 
 if __name__=="__main__":
