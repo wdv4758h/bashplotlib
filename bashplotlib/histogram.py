@@ -105,26 +105,28 @@ def plot_hist(f, height=20.0, bincount=None, binwidth=None, pch="o", colour="def
     min_val, max_val = None, None
     n, mean = 0.0, 0.0
 
-    for number in read_numbers(f):
-        n += 1
-        if min_val is None or number < min_val:
-            min_val = number
-        if max_val is None or number > max_val:
-            max_val = number
-        mean += number
+    with open(f) as fobj:
+        for number in read_numbers(fobj):
+            n += 1
+            if min_val is None or number < min_val:
+                min_val = number
+            if max_val is None or number > max_val:
+                max_val = number
+            mean += number
 
     mean /= n
 
     bins = list(calc_bins(n, min_val, max_val, bincount, binwidth))
     hist = {i: 0 for i in range(len(bins))}
 
-    for number in read_numbers(f):
-        for i, b in enumerate(bins):
-            if number <= b:
-                hist[i] += 1
-                break
-        if number == max_val and max_val > bins[len(bins) - 1]:
-            hist[len(hist) - 1] += 1
+    with open(f) as fobj:
+        for number in read_numbers(fobj):
+            for i, b in enumerate(bins):
+                if number <= b:
+                    hist[i] += 1
+                    break
+            if number == max_val and max_val > bins[len(bins) - 1]:
+                hist[len(hist) - 1] += 1
 
     min_y, max_y = min(hist.values()), max(hist.values())
 
